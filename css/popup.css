@@ -1,0 +1,192 @@
+*{
+    font-family: -apple-system, 
+      BlinkMacSystemFont, 
+      "Segoe UI", 
+      Roboto, 
+      Oxygen-Sans, 
+      Ubuntu, 
+      Cantarell, 
+      "Helvetica Neue", 
+      sans-serif;
+}
+.material-icons-outlined {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+body {
+    align-items: center;
+    background-color: #ffd54f;
+    /* display: flex; */    
+    width: 300px;
+    height: 400px;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 10px;
+}
+
+.bottom-drawer{
+    background-color: transparent;
+    position: fixed;
+    left: 50%;
+    bottom: 5px;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    display: flex; 
+    justify-content: space-between;
+} 
+
+
+.bottom-drawer .material-icons-outlined{
+    /* display: inline-block; */
+    border: 2px solid rgb(34, 17, 41);
+    padding:4px 10px;
+    margin: 5px 10px;
+    border-radius: 5px;
+    cursor:pointer;
+} 
+
+.button-drawer button:hover {
+    background-color: rgb(255, 255, 255);
+    color: white;
+    background: white;
+}
+
+#time-page{
+    margin: 0 auto;
+    text-align: center;
+}
+#timer-btns{
+    text-align: center;
+    position: relative;
+    top: 80px;
+}
+.fsm{
+    font-size: 1.2em;
+}
+#timer{
+    border: Black solid 0.3rem;
+    border-radius:12rem;
+    position: relative;
+    top:20px;
+    text-align: center;
+    font-size: 5em;
+    
+} 
+
+#todo-page h6{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 110px;
+    text-align: right;
+    margin-right: 15px;
+    color: grey;
+}
+#todo-items{
+    line-height: 25px;
+    font-size: 1.5em;
+}
+#todo-items li{
+    border-bottom: 2px solid grey;
+}
+#todo-items .delete-todo{
+    float: right;
+    padding-right: 20px;
+}
+
+span.done{
+    text-decoration: line-through;
+}
+
+
+
+span.blpRmHost{ 
+    float: right;
+    padding-right: 20px;
+}
+
+table#blpTable {
+    width: 100%;
+    line-height: 25px; 
+    font-size: 1.5em; 
+}
+
+.bn3 {
+    display: inline-block;
+    padding: 0.4em 1.4em;
+    margin: 2px 0.1em 0.1em 4px;
+    border: 0.16em solid rgb(28, 15, 41);
+    border-radius: 2em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    color: #ffffff;
+    /* text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.253); */
+    background-color: black;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  
+.bn3:hover {
+color: black;
+background-color: rgb(255, 255, 255);
+}
+
+#time-page .container{
+    position:relative;
+    top:30px;
+}
+
+#timer-settings{
+    content: "\f013";
+    position: relative;
+    
+    float:right;
+    right: 10px;
+    cursor: pointer;
+}
+
+.user-in{
+    width:45px;
+    font-size: 1.5em;
+    float:right;
+    margin-right: 15px;
+}
+
+#save-timer-settings{
+    width: 100%;
+    cursor: pointer;
+    position: fixed;
+    text-align: center;
+    right: 10px;
+    bottom: 140px;
+}
+
+div.timer-settings-options label{
+    line-height: 55px; 
+    font-size: 1.5em; 
+}

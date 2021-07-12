@@ -4,59 +4,57 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="./css/popup.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+    <script src="./scripts/jquery-3.6.0.min.js"></script>
     <title>Document</title>
 </head>
 <body>   
     <div id="blocklist-page" class="tabcontent">
         <h1 id="blpTitle">Blocklist</h1>
         <input type="url" placeholder="google.com" id="blpHostInput"/>
-        <button id="blpHostAddBtn">Block</button>
+        <button class="bn3" id="blpHostAddBtn">Block</button>
 
-        <table id="blpTable">
-            <tbody></tbody>
-        </table>
+        <div class="blp-container" style="height:210px; overflow:auto;">
+            <table id="blpTable">
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 
     <div id="time-page" class="tabcontent">
-            <h1 style="text-align: center;">Focus Timer</h1>
-            <div id = "timer">00:00</div>
-            <div id = "timer-btns">
-                <button id = "start-btn">Start</button>
-                <button id = "rst-btn">Reset</button>
-            </div>
             <i id="timer-settings" class="fa fa-gear" style="font-size:24px"></i>
+            <div class = "container">
+                <h1 id="focus-now" style="text-align: center;">Focus Timer</h1>
+                <h1 id="break-now" style="text-align: center;">Take a Chill Pill!</h1>
+                <div id = "timer">00:00</div>
+                <div id = "timer-btns">
+                    <button class="bn3" id = "start-btn">Start</button>
+                    <button class="bn3" id = "rst-btn">Reset</button>
+                </div>
+                <p class="fsm">Focus Sessions Remaining: <span id="focus-cycles-left">0</span></p>
+            </div>
     </div> 
+
     <div id="todo-page" class="tabcontent">
+        <h6>Click on Task to mark done!</h6>
         <h1>Todo</h1>
-        <h2 class="second"> Get it Done </h2>
         <input id= "task-input" type="text" placeholder="Enter Task">
-        <button id ="taskAddBtn" >Add</button>
+        <button class="bn3" id ="taskAddBtn" >Add</button>
 
-        <ul id ="todo-items">
-        </ul>
+        <div class="container-todo" style="height:210px; overflow:auto;">
+            <ul id="todo-items">
+            </ul>
+        </div>
     </div>
-
     <div id="timer-settings-page" class="tabcontent">
         <h1>Settings</h1>
         <div class="timer-settings-options">
             <label for="focus-time">Focus Duration</label>
-                <input class="user-in" id="focus-time" type="number" max="999" maxlength="3" step="5" value="20"><br>
+                <input class="user-in" id="focus-time" type="number" min = "0" max="999" maxlength="3" step="5" value="20"><br>
             <label for="sho-break-time">Short Break Duration</label>
-                <input class="user-in" id="sho-break-time" type="number" max="999" maxlength="3" step="5" value="5"><br>
-            <label for="lo-break-time">Long Break Duration</label>
-                <input class="user-in" id="lo-break-time" type="number" max="999" maxlength="3" step="5" value="20"><br>
-            <label for="lo-break-frequency">Long Break Frequency</label>
-                <select class="user-in" id="lo-break-frequency" name="Long Break Frequency">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3" selected>3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select><br>
-                <!-- <input class="user-in" id="lo-break-frequency" type="number" max="999" maxlength="3" step="1" value="3"><br> -->
+                <input class="user-in" id="sho-break-time" type="number" min = "0" max="999" maxlength="3" step="5" value="5"><br>
             <label for="cycles">Focus Cycles</label>
                 <select class="user-in" id="cycles" name="Cycles">
                     <option value="1" selected>1</option>
@@ -71,9 +69,12 @@
     </div>
 
     <div class="bottom-drawer">
-        <button id = "bl-btn">BlackList</button>
-        <button id = "timer-btn">Timer</button>
-        <button id = "todo-btn">To-Do</button>
+        <!-- <button id = "bl-btn">BlackList</button> -->
+        <span id = "bl-btn" class="material-icons-outlined">app_blocking</span>
+        <!-- <button id = "timer-btn">Timer</button> -->
+        <span id = "timer-btn" class="material-icons-outlined">watch_later</span>
+        <!-- <button id = "todo-btn">To-Do</button> -->
+        <span id = "todo-btn" class="material-icons-outlined">fact_check</span>
     </div>
     <!-- <svg>
         <defs>
@@ -82,9 +83,9 @@
           <symbol id="delete-icon" viewBox="0 0 448 448"><path d="m224 0c-123.710938 0-224 100.289062-224 224s100.289062 224 224 224 224-100.289062 224-224c-.132812-123.65625-100.34375-223.867188-224-224zm124.449219 325.824219c4.15625 4.015625 5.828125 9.964843 4.363281 15.558593s-5.835938 9.964844-11.429688 11.429688-11.542968-.207031-15.558593-4.363281l-101.824219-101.824219-101.824219 101.824219c-6.277343 6.0625-16.257812 5.976562-22.429687-.195313s-6.257813-16.152344-.195313-22.429687l101.824219-101.824219-101.824219-101.824219c-4.15625-4.015625-5.828125-9.964843-4.363281-15.558593s5.835938-9.964844 11.429688-11.429688 11.542968.207031 15.558593 4.363281l101.824219 101.824219 101.824219-101.824219c6.277343-6.0625 16.257812-5.976562 22.429687.195313s6.257813 16.152344.195313 22.429687l-101.824219 101.824219zm0 0" fill="#D80027"/></symbol>
         </defs>
     </svg> -->
-    <script src="timer.js"></script>
-    <script src="tabs.js"></script>
-    <script src="blp.js"></script>
-    <script src="todo.js"></script>
+    <script src="./scripts/timer.js"></script>
+    <script src="./scripts/tabs.js"></script>
+    <script src="./scripts/blp.js"></script>
+    <script src="./scripts/todo.js"></script>
 </body>
 </html>

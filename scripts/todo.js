@@ -17,9 +17,9 @@ function renderList(item){
   const isChecked = item.checked ? '' : 'done';
 
   return `
-  <li class = "todo-item ${isChecked}" data-key = ${item.id}>
-  <span class="js-tick">${item.text}</span>
-  <img data-url="${item}"  class="delete-todo js-delete-todo" src="../rm.svg" style="width: 19px; height: 19px">
+  <li class="todo-item" data-key = ${item.id}>
+    <span class="js-tick ${isChecked}">${item.text}</span>
+    <span data-url="${item}"  class="delete-todo js-delete-todo material-icons-outlined">delete</span>
   </li>
 `
 

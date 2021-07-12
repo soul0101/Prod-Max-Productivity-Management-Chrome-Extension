@@ -38,7 +38,7 @@ function blpItemHTML(item) {
             <tr title="${item}">
               <td title="${item}" class="url">${item}</td>
               <td>
-                <img data-url="${item}"  class="blpRmHost" src="../rm.svg" style="width: 19px; height: 19px">
+                <span data-url="${item}"  class="blpRmHost material-icons-outlined">delete</span>
               </td>
             </tr>
         `

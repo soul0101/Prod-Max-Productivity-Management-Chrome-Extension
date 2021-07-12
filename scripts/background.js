@@ -1,5 +1,5 @@
-let STATE, clock;
-let audio = new Audio("alarm.mp3");
+let STATE, clock, MODE;
+let audio = new Audio("/assets/alarm.mp3");
 
 let chromeTabOptions = {
     active: true,
@@ -7,8 +7,9 @@ let chromeTabOptions = {
 }
 
 chrome.runtime.onInstalled.addListener(() => {
-    chrome.storage.local.set({'startTime':0, 'duration':0, 'blockedUrls':[], 'taskList':[], 'settings':defaultSettings()});
+    chrome.storage.local.set({'startTime':0, 'duration':defaultSettings().ft*60, 'blockedUrls':[], 'taskList':[], 'settings':defaultSettings(), 'cyclesLeft':defaultSettings().cycles});
     STATE = 0;
+    MODE = 0;
 });
 
 function updateState(value){
@@ -19,20 +20,31 @@ function getState(){
     return STATE;
 }
 
+function getMode(){
+    return MODE;
+}
+
+function updateMode(value){
+    //MODE 0 - focus timer
+    //MODE 1 - break timer
+    MODE = value;
+}
+
 //-----------------Timer--------------------//
 function setAlarm(timeLeft){
     console.log("setAlarm", timeLeft, STATE);
     //Starts website blocking
     updateBlockListener();
+    console.log("set alarm triggered", STATE, MODE);
     clock = setTimeout(()=>{
         let nID = (Date.now()/1000|0).toString();
-        chrome.notifications.create(nID, { type: 'basic', title: 'Time is up!', message: '', priority: 2, iconUrl: "img1.jpg" }, function() { });
+        chrome.notifications.create(nID, { type: 'basic', title: 'Time is up!', message: '', priority: 2, iconUrl: "/assets/img1.jpg" }, function() { });
         audio.play();
-
-        STATE = 0;
         stopBlocking();
-        chrome.storage.local.set({'duration':15}, ()=>{});
+
+        processTimerState();               
     }, timeLeft);
+    
 }
 
 function clearAlarm(){
@@ -40,15 +52,53 @@ function clearAlarm(){
     stopBlocking();
     clearTimeout(clock);
 }
+
+function processTimerState(){
+    let isOpen = (chrome.extension.getViews({ type: "popup" }).length > 0);
+    if(!isOpen){
+        chrome.storage.local.get({'settings':defaultSettings(), 'cyclesLeft':0}, (data)=>{        
+            console.log("processTImerState triggered: cycles left", data.cyclesLeft, "isopen? ", isOpen);
+            if(MODE == 0){
+                if(data.cyclesLeft > 1){
+                    STATE = 1;
+                    MODE = 1;
+                    data.cyclesLeft--;
+                    chrome.storage.local.set({'startTime':Date.now(), 'duration':data.settings.sbt*60,'cyclesLeft':data.cyclesLeft}, ()=>{                        
+                        setAlarm(data.settings.sbt*60*1000);
+                    });
+                } else{
+                    STATE = 0;
+                    MODE = 0;
+                    chrome.storage.local.get({'settings':defaultSettings()}, (data)=>{
+                        chrome.storage.local.set({'startTime':0, 'duration':data.settings.ft*60, 'cyclesLeft':data.settings.cycles});
+                    });
+                }            
+            } else{
+                if(data.cyclesLeft > 0){
+                    STATE = 1;
+                    MODE = 0;
+                    chrome.storage.local.set({'startTime':Date.now(), 'duration':data.settings.ft*60}, ()=>{
+                        //set alarm
+                        setAlarm(data.settings.ft*60*1000);                        
+                    });
+                } else{
+                    STATE = 0;
+                    MODE = 0;
+                    chrome.storage.local.get({'settings':defaultSettings()}, (data)=>{
+                        chrome.storage.local.set({'startTime':0, 'duration':data.settings.ft*60, 'cyclesLeft':data.settings.cycles});
+                    });
+                }                
+            }
+        });
+    }
+}
 //---------------Timer-Settings-------------//
 
 function defaultSettings(){
     return {
         ft: 20,
         sbt: 5,
-        lbt: 20,
-        lbf: 3,
-        cycles: 1,
+        cycles: 2,
     }
 }
 
@@ -109,10 +159,12 @@ function startBlocking(){
 }
 
 function updateBlockListener(){
-    if(STATE == 1){
+    if(STATE == 1 && MODE == 0){
         stopBlocking();
         startBlocking(); 
-    }   
+    } else{
+        stopBlocking();
+    }
 }
 
 function url2rgx(url) {

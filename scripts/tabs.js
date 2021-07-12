@@ -13,9 +13,11 @@ $(document).ready(function(){
         $(".tabcontent").hide();
         $("#todo-page").show(); 
     });
-    $("#timer-settings").click(function(){
-        $(".tabcontent").hide();
-        $("#timer-settings-page").show();
-    });
+    // $("#timer-settings").click(function(){
+    //     bg.loadSettings(()=>{
+    //         $(".tabcontent").hide();
+    //         $("#timer-settings-page").show();
+    //     });
+    // });
 });
 
