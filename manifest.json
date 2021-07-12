@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "Productivity Manager",
+    "name": "Prod-Max Productivity Manager",
     "version": "0.1",
     "background": {
         "scripts": ["./scripts/jquery-3.6.0.min.js","./scripts/background.js"]
@@ -9,5 +9,10 @@
         "default_popup": "./popup.html",
         "default_icon": "./assets/productivity.png"
     },    
+    "icons": {
+        "128": "./assets/productivity.png",
+        "16": "./assets/productivity.png",
+        "48": "./assets/productivity.png"
+     },
     "permissions": ["<all_urls>","storage","activeTab","notifications","webRequest", "webRequestBlocking"]
 }
