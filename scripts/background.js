@@ -12,6 +12,11 @@ chrome.runtime.onInstalled.addListener(() => {
     MODE = 0;
 });
 
+chrome.runtime.onStartup.addListener(() => {
+    MODE = 0;
+    STATE = 0;
+});
+
 function updateState(value){
     STATE = value;
 }
